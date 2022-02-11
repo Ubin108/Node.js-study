@@ -4,19 +4,19 @@ const fs = require('fs');
 //동시에 백그라운드로 넘어가서 먼저 끝난게 태스크큐로 넘어오는 형식
 
 console.log('시작');
-fs.readFile('./readme2.txt', (err, data) => {
+fs.readFile('./readme.txt', (err, data) => {
   if (err) {
     throw err;
   }
   console.log('1번', data.toString());
 });
-fs.readFile('./readme2.txt', (err, data) => {
+fs.readFile('./readme.txt', (err, data) => {
   if (err) {
     throw err;
   }
   console.log('2번', data.toString());
 });
-fs.readFile('./readme2.txt', (err, data) => {
+fs.readFile('./readme.txt', (err, data) => {
   if (err) {
     throw err;
   }

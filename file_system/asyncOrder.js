@@ -20,4 +20,7 @@ fs.readFile('./readme.txt', (err, data) => {
                     throw err;
                 }
                 console.log('4번', data.toString());
-})
+            });
+        });
+    });
+});
