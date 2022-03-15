@@ -17,6 +17,10 @@ http.createServer(async (req, res) => { // req(request 요청), res(respond 응�
       } else if (req.url === '/users') {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         return res.end(JSON.stringify(users));
+      } else if (req.url === '/blog') {
+        const data2 = await fs.readFile('./blog.html');
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        return res.end(data2);
       }
       // /도 /about도 /users도 아니면
       try {
