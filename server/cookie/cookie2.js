@@ -23,7 +23,7 @@ http.createServer(async (req, res) => {
         const expires = new Date();
 
         expires.setMinutes(expires.getMinutes() + 5);
-        res.writeHead(302, { Location: '/', 'Set-Cookie': 'name=${encodeURIComponent(name)}; Expires=${expires.toGMTString()}; httpOnly; Path=/', });
+        res.writeHead(302, { Location: '/', 'Set-Cookie': `name=${encodeURIComponent(name)}; Expires=${expires.toGMTString()}; httpOnly; Path=/`, });
         res.end();
         
     } else if (cookies.name) {
