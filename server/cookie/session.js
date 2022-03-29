@@ -5,7 +5,8 @@ const qs = require('querystring');
 
 const parseCookies = (cookie = '') =>
     cookie
-        .split(v => v.split('='))
+        .split(';')
+        .map(v => v.split('='))
         .reduce((acc, [k, v]) => {
             acc[k.trim()] = decodeURIComponent(v);
             return acc;
@@ -15,7 +16,7 @@ const session = {};
 
 http.createServer(async (req, res) => {
     const cookie = parseCookies(req.headers.cookie);
-    if (req.url.startsWith('./login')) {
+    if (req.url.startsWith('/login')) {
         const { query } = url.parse(req.url);
         const { name } = qs.parse(query);
         const expires = new Date();
@@ -46,7 +47,7 @@ http.createServer(async (req, res) => {
             }
         }
     })
-    .listen(8085, () => {
-        console.log('8085번 포트에서 서버 대기 중입니다!');
+    .listen(8084, () => {
+        console.log('8084번 포트에서 서버 대기 중입니다!');
     });
     

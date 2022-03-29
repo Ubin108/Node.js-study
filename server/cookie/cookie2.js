@@ -17,7 +17,7 @@ const parseCookies = (cookie = '') =>
 http.createServer(async (req, res) => {
     const cookies = parseCookies(req.headers.cookie); // { mycookie: 'test' }
 
-    if (req.url.startsWith('./login')) { // 주소가 /login으로 시작하는 경우
+    if (req.url.startsWith('/login')) { // 주소가 /login으로 시작하는 경우
         const { query } = url.parse(req.url);
         const { name } = qs.parse(query);
         const expires = new Date();
@@ -28,7 +28,7 @@ http.createServer(async (req, res) => {
         
     } else if (cookies.name) {
         res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('${cookies.name}님 안녕하세요');
+        res.end(`${cookies.name}님 안녕하세요`);
     } else {
         try {
             const data = await fs.readFile('./cookie2.html');
