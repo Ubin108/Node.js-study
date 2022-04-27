@@ -1,8 +1,11 @@
+const dotenv = require('dotenv'); //닷 엔브(.env)
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
+
+dotenv.config(); //process.env에 값 저장한 거 불러오기
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
@@ -25,7 +28,7 @@ localhost:3000/index.html         express/public-3030/index.html
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // 폼 파싱. true면 qs, false면 querystring (true 추천.)
 
-app.use(cookieParser(process.env.COOKIE_SECRET)); // 쿠키 파싱
+app.use(cookieParser(process.env.COOKIE_SECRET)); // 쿠키 파싱. process.env.COOKIE_SECRET 환경변수에 키값 숨김(소스코드에 키값이 드러나지 않음)
 app.use(session({
     resave: false,
     saveUninitialized: false,

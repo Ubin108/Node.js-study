@@ -8,7 +8,17 @@ app.set('port', process.env.PORT || 3000);
 app.use((req, res, next) => { //모든 요청에 실행하고 싶은 부분을 미들웨어로 설정!(함수가 미들웨어인거지 app.use가 미들웨어인건 아님.)
     console.log('모든 요청에 실행하고 싶어요.');
     next(); //미들웨어에서는 다음으로 넘어가려면 꼭 next를 써줘야함.(자동으로 넘어가지지 않음.)
-});
+}
+ /* 에러 만들기 및 처리
+ , (req, res, next) => {
+    try {
+        console.log(adfhjkd); //에러(문법오류)
+    } catch(error){
+        next(error); //next의 인수로 무언가를 넣으면 에러로 처리되어 다음으로 넘어가는게 아니라 바로 에러처리 미들웨어 부분으로 넘어감.
+    }
+ }
+ */
+);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -17,9 +27,21 @@ app.get('/', (req, res) => {
     res.send('안녕하세요');
     res.json({ hello: 'bintudy' });
     */
-   // 한 라우터에서는 send, sendFile, json 계열 한번만 하기! (여러번 하면 에러)
+   // 한 라우터에서는 res.send, res.sendFile, res.json, res.render와 같이 응답을 보내는 행위는 한번만 하기! (여러번 하면 에러)
    // 'Cannot set headers after they are sent to the client' 에러 뜸.
 });
+
+app.get('/', (req, res, next) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+    next('route'); // 같은 라우터의 다른 부분은 실행안되고 바로 다음 라우터로 넘어감.
+}, (req, res) => {
+    console.log('실행되나요?'); // 실행안됨.
+})
+app.get('/', (req, res) => {
+    console.log('실행되지롱'); // 실행됨.
+})
+
+
 
 /*
 app.get('/category/Javascripts', (req, res) => {
